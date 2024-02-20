@@ -1,0 +1,5 @@
+['run.py', 'Classifier.py', 'data', 'report.py', 'result', 'Train.py']
+['Ytrain.csv', 'Xtrain.csv', 'Xtest.csv', 'Ytest.csv']
+Start running the submitted code ...
+Finished. Running time: 0.006112098693847656.
+Accuracy: 0.7142857142857143
