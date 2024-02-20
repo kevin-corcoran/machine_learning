@@ -1,0 +1,529 @@
+let SessionLoad = 1
+if &cp | set nocp | endif
+let s:cpo_save=&cpo
+set cpo&vim
+inoremap <silent> <C-Tab> =UltiSnips#ListSnippets()
+inoremap <silent> <Plug>(fzf-maps-i) :call fzf#vim#maps('i', 0)
+inoremap <expr> <Plug>(fzf-complete-buffer-line) fzf#vim#complete#buffer_line()
+inoremap <expr> <Plug>(fzf-complete-line) fzf#vim#complete#line()
+inoremap <expr> <Plug>(fzf-complete-file-ag) fzf#vim#complete#path('ag -l -g ""')
+inoremap <expr> <Plug>(fzf-complete-file) fzf#vim#complete#path("find . -path '*/\.*' -prune -o -type f -print -o -type l -print | sed 's:^..::'")
+inoremap <expr> <Plug>(fzf-complete-path) fzf#vim#complete#path("find . -path '*/\.*' -prune -o -print | sed '1d;s:^..::'")
+inoremap <expr> <Plug>(fzf-complete-word) fzf#vim#complete#word()
+inoremap <C-L> u[s1z=`]au
+inoremap <C-F> : silent exec '.!inkscape-figures create "'.getline('.').'" "'.b:vimtex.root.'/figures/"':w
+inoremap <expr> <C-X><C-K> fzf#vim#complete('cat /usr/share/dict/words')
+inoremap <F1> :set invfullscreena
+vnoremap  :'<,'>w !xclip -sel clip
+nnoremap  : silent exec '!inkscape-figures edit "'.b:vimtex.root.'/figures/" > /dev/null 2>&1 &':redraw!
+snoremap <silent>  "_c
+nmap  h
+xmap  h
+omap  h
+xnoremap <silent> 	 :call UltiSnips#SaveLastVisualSelection()gvs
+snoremap <silent> 	 :call UltiSnips#ExpandSnippetOrJump()
+map <NL> j
+map  k
+map  l
+nmap  :Buffers
+snoremap  "_c
+nnoremap  :FZF
+omap <silent> % <Plug>(MatchitOperationForward)
+xmap <silent> % <Plug>(MatchitVisualForward)
+nmap <silent> % <Plug>(MatchitNormalForward)
+vnoremap / /\v
+nnoremap / /\v
+nmap H gT
+nmap L gt
+omap <silent> [% <Plug>(MatchitOperationMultiBackward)
+xmap <silent> [% <Plug>(MatchitVisualMultiBackward)
+nmap <silent> [% <Plug>(MatchitNormalMultiBackward)
+map \l :set list! " Toggle tabs and EOL
+map \q gqip
+map \  :let @/='' " clear search
+omap <silent> ]% <Plug>(MatchitOperationMultiForward)
+xmap <silent> ]% <Plug>(MatchitVisualMultiForward)
+nmap <silent> ]% <Plug>(MatchitNormalMultiForward)
+xmap a% <Plug>(MatchitVisualTextObject)
+vmap gx <Plug>NetrwBrowseXVis
+nmap gx <Plug>NetrwBrowseX
+omap <silent> g% <Plug>(MatchitOperationBackward)
+xmap <silent> g% <Plug>(MatchitVisualBackward)
+nmap <silent> g% <Plug>(MatchitNormalBackward)
+nnoremap j gj
+nnoremap k gk
+nnoremap mt :call MoveToNextTab()
+nnoremap mT :call MoveToPrevTab()
+nnoremap <Plug>(-fzf-:) :
+nnoremap <Plug>(-fzf-/) /
+nnoremap <Plug>(-fzf-vim-do) :execute g:__fzf_command
+vnoremap <silent> <Plug>NetrwBrowseXVis :call netrw#BrowseXVis()
+nnoremap <silent> <Plug>NetrwBrowseX :call netrw#BrowseX(netrw#GX(),netrw#CheckIfRemote(netrw#GX()))
+snoremap <C-R> "_c
+snoremap <silent> <C-H> "_c
+snoremap <silent> <Del> "_c
+snoremap <silent> <BS> "_c
+snoremap <silent> <C-Tab> :call UltiSnips#ListSnippets()
+onoremap <silent> <Plug>(fzf-maps-o) :call fzf#vim#maps('o', 0)
+xnoremap <silent> <Plug>(fzf-maps-x) :call fzf#vim#maps('x', 0)
+nnoremap <silent> <Plug>(fzf-maps-n) :call fzf#vim#maps('n', 0)
+vnoremap <C-C> :'<,'>w !xclip -sel clip
+nnoremap <C-S-PageDown> :tabm +1
+nnoremap <C-S-PageUp> :tabm -1
+nnoremap <C-F> : silent exec '!inkscape-figures edit "'.b:vimtex.root.'/figures/" > /dev/null 2>&1 &':redraw!
+map <C-L> l
+nmap <C-H> h
+xmap <C-H> h
+omap <C-H> h
+map <C-K> k
+map <C-J> j
+nnoremap <C-T> :FZF
+nmap <C-P> :Buffers
+vnoremap <F1> :set invfullscreen
+nnoremap <F1> :set invfullscreen
+xmap <silent> <Plug>(MatchitVisualTextObject) <Plug>(MatchitVisualMultiBackward)o<Plug>(MatchitVisualMultiForward)
+onoremap <silent> <Plug>(MatchitOperationMultiForward) :call matchit#MultiMatch("W",  "o")
+onoremap <silent> <Plug>(MatchitOperationMultiBackward) :call matchit#MultiMatch("bW", "o")
+xnoremap <silent> <Plug>(MatchitVisualMultiForward) :call matchit#MultiMatch("W",  "n")m'gv``
+xnoremap <silent> <Plug>(MatchitVisualMultiBackward) :call matchit#MultiMatch("bW", "n")m'gv``
+nnoremap <silent> <Plug>(MatchitNormalMultiForward) :call matchit#MultiMatch("W",  "n")
+nnoremap <silent> <Plug>(MatchitNormalMultiBackward) :call matchit#MultiMatch("bW", "n")
+onoremap <silent> <Plug>(MatchitOperationBackward) :call matchit#Match_wrapper('',0,'o')
+onoremap <silent> <Plug>(MatchitOperationForward) :call matchit#Match_wrapper('',1,'o')
+xnoremap <silent> <Plug>(MatchitVisualBackward) :call matchit#Match_wrapper('',0,'v')m'gv``
+xnoremap <silent> <Plug>(MatchitVisualForward) :call matchit#Match_wrapper('',1,'v')m'gv``
+nnoremap <silent> <Plug>(MatchitNormalBackward) :call matchit#Match_wrapper('',0,'n')
+nnoremap <silent> <Plug>(MatchitNormalForward) :call matchit#Match_wrapper('',1,'n')
+inoremap  : silent exec '.!inkscape-figures create "'.getline('.').'" "'.b:vimtex.root.'/figures/"':w
+inoremap <silent> 	 =UltiSnips#ExpandSnippetOrJump()
+inoremap  u[s1z=`]au
+inoremap <expr>  fzf#vim#complete('cat /usr/share/dict/words')
+let &cpo=s:cpo_save
+unlet s:cpo_save
+set autoread
+set background=dark
+set backspace=indent,eol,start
+set expandtab
+set fileencodings=ucs-bom,utf-8,default,latin1
+set formatoptions=tcqrn1
+set helplang=en
+set hidden
+set hlsearch
+set ignorecase
+set incsearch
+set laststatus=2
+set listchars=tab:▸\ ,eol:¬
+set matchpairs=(:),{:},[:],<:>
+set modelines=0
+set mouse=a
+set printoptions=paper:a4
+set ruler
+set runtimepath=~/.vim,~/.vim/bundle/Vundle.vim,~/.vim/bundle/vim-latex-live-preview,~/.vim/bundle/julia-vim,~/.vim/bundle/fzf,~/.vim/bundle/fzf.vim,~/.vim/bundle/vim-notebook,~/.vim/bundle/vimtex,~/.vim/bundle/ultisnips,~/.vim/bundle/vim-snippets,/var/lib/vim/addons,/etc/vim,/usr/share/vim/vimfiles,/usr/share/vim/vim82,/usr/share/vim/vim82/pack/dist/opt/matchit,/usr/share/vim/vimfiles/after,/etc/vim/after,/var/lib/vim/addons/after,~/.vim/after,~/.vim/bundle/Vundle.vim,~/.vim/bundle/Vundle.vim/after,~/.vim/bundle/vim-latex-live-preview/after,~/.vim/bundle/julia-vim/after,~/.vim/bundle/fzf/after,~/.vim/bundle/fzf.vim/after,~/.vim/bundle/vim-notebook/after,~/.vim/bundle/vimtex/after,~/.vim/bundle/ultisnips/after,~/.vim/bundle/vim-snippets/after,/usr/lib/python3/dist-packages/powerline/bindings/vim
+set scrolloff=3
+set shiftwidth=2
+set showcmd
+set showmatch
+set smartcase
+set softtabstop=2
+set spelllang=en_us
+set splitbelow
+set splitright
+set statusline=%!py3eval('powerline.new_window()')
+set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc
+set switchbuf=usetab,newtab,useopen
+set tabline=%!py3eval('powerline.tabline()')
+set tabstop=2
+set textwidth=79
+set updatetime=500
+set wildcharm=26
+set wildmenu
+set window=49
+let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
+let v:this_session=expand("<sfile>:p")
+silent only
+silent tabonly
+cd ~/ucsc/master-2/quarter-1/machine-learning/assignment_02/code
+if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
+  let s:wipebuf = bufnr('%')
+endif
+set shortmess=aoO
+argglobal
+%argdel
+$argadd prob4_5.jl
+set stal=2
+tabnew
+tabrewind
+edit prob4_5.jl
+set splitbelow splitright
+wincmd t
+set winminheight=0
+set winheight=1
+set winminwidth=0
+set winwidth=1
+argglobal
+let s:cpo_save=&cpo
+set cpo&vim
+inoremap <buffer> <expr> <Plug>L2UTab LaTeXtoUnicode#Tab()
+cnoremap <buffer> <expr> <S-Tab> LaTeXtoUnicode#CmdTab(128)
+inoremap <buffer> <silent> L2UFallbackTab =UltiSnips#ExpandSnippetOrJump()
+xnoremap <buffer> <nowait> <silent> [[ :let b:jlblk_count=v:count1gv:call julia_blocks#vwrapper_move("julia_blocks#moveblock_p")
+onoremap <buffer> <nowait> <silent> [[ :let b:jlblk_count=v:count1:call julia_blocks#owrapper_move(v:operator, "julia_blocks#moveblock_p", 0, 1)
+nnoremap <buffer> <nowait> <silent> [[ :let b:jlblk_count=v:count1 | call julia_blocks#moveblock_p()
+xnoremap <buffer> <nowait> <silent> [] :let b:jlblk_count=v:count1gv:call julia_blocks#vwrapper_move("julia_blocks#moveblock_P")
+onoremap <buffer> <nowait> <silent> [] :let b:jlblk_count=v:count1:call julia_blocks#owrapper_move(v:operator, "julia_blocks#moveblock_P", 1, 1)
+nnoremap <buffer> <nowait> <silent> [] :let b:jlblk_count=v:count1 | call julia_blocks#moveblock_P()
+xnoremap <buffer> <nowait> <silent> [j :let b:jlblk_count=v:count1gv:call julia_blocks#vwrapper_move("julia_blocks#move_p")
+onoremap <buffer> <nowait> <silent> [j :let b:jlblk_count=v:count1:call julia_blocks#owrapper_move(v:operator, "julia_blocks#move_p", 0, 1)
+nnoremap <buffer> <nowait> <silent> [j :let b:jlblk_count=v:count1 | call julia_blocks#move_p()
+xnoremap <buffer> <nowait> <silent> [J :let b:jlblk_count=v:count1gv:call julia_blocks#vwrapper_move("julia_blocks#move_P")
+onoremap <buffer> <nowait> <silent> [J :let b:jlblk_count=v:count1:call julia_blocks#owrapper_move(v:operator, "julia_blocks#move_P", 1, 1)
+nnoremap <buffer> <nowait> <silent> [J :let b:jlblk_count=v:count1 | call julia_blocks#move_P()
+xnoremap <buffer> <nowait> <silent> ]] :let b:jlblk_count=v:count1gv:call julia_blocks#vwrapper_move("julia_blocks#moveblock_n")
+onoremap <buffer> <nowait> <silent> ]] :let b:jlblk_count=v:count1:call julia_blocks#owrapper_move(v:operator, "julia_blocks#moveblock_n", 0, 0)
+nnoremap <buffer> <nowait> <silent> ]] :let b:jlblk_count=v:count1 | call julia_blocks#moveblock_n()
+xnoremap <buffer> <nowait> <silent> ]j :let b:jlblk_count=v:count1gv:call julia_blocks#vwrapper_move("julia_blocks#move_n")
+onoremap <buffer> <nowait> <silent> ]j :let b:jlblk_count=v:count1:call julia_blocks#owrapper_move(v:operator, "julia_blocks#move_n", 0, 0)
+nnoremap <buffer> <nowait> <silent> ]j :let b:jlblk_count=v:count1 | call julia_blocks#move_n()
+xnoremap <buffer> <nowait> <silent> ][ :let b:jlblk_count=v:count1gv:call julia_blocks#vwrapper_move("julia_blocks#moveblock_N")
+onoremap <buffer> <nowait> <silent> ][ :let b:jlblk_count=v:count1:call julia_blocks#owrapper_move(v:operator, "julia_blocks#moveblock_N", 1, 0)
+nnoremap <buffer> <nowait> <silent> ][ :let b:jlblk_count=v:count1 | call julia_blocks#moveblock_N()
+xnoremap <buffer> <nowait> <silent> ]J :let b:jlblk_count=v:count1gv:call julia_blocks#vwrapper_move("julia_blocks#move_N")
+onoremap <buffer> <nowait> <silent> ]J :let b:jlblk_count=v:count1:call julia_blocks#owrapper_move(v:operator, "julia_blocks#move_N", 1, 0)
+nnoremap <buffer> <nowait> <silent> ]J :let b:jlblk_count=v:count1 | call julia_blocks#move_N()
+xnoremap <buffer> <nowait> <silent> aj :let b:jlblk_inwrapper=1:let b:jlblk_count=max([v:prevcount,1]):call julia_blocks#vwrapper_select("julia_blocks#select_a")
+onoremap <buffer> <nowait> <silent> aj :let b:jlblk_inwrapper=1:let b:jlblk_count=max([v:prevcount,1]):call julia_blocks#owrapper_select(v:operator, "julia_blocks#select_a")
+xnoremap <buffer> <nowait> <silent> ij :let b:jlblk_inwrapper=1:let b:jlblk_count=max([v:prevcount,1]):call julia_blocks#vwrapper_select("julia_blocks#select_i")
+onoremap <buffer> <nowait> <silent> ij :let b:jlblk_inwrapper=1:let b:jlblk_count=max([v:prevcount,1]):call julia_blocks#owrapper_select(v:operator, "julia_blocks#select_i")
+nnoremap <buffer> <silent> <Plug>(JuliaDocPrompt) :call julia#doc#prompt()
+imap <buffer> 	 <Plug>L2UTab
+cnoremap <buffer> <expr> 	 LaTeXtoUnicode#CmdTab(9)
+let &cpo=s:cpo_save
+unlet s:cpo_save
+setlocal keymap=
+setlocal noarabic
+setlocal autoindent
+setlocal backupcopy=
+setlocal balloonexpr=
+setlocal nobinary
+setlocal nobreakindent
+setlocal breakindentopt=
+setlocal bufhidden=
+setlocal buflisted
+setlocal buftype=
+setlocal nocindent
+setlocal cinkeys=0{,0},0),0],:,0#,!^F,o,O,e
+setlocal cinoptions=#1
+setlocal cinwords=if,else,while,do,for,switch
+setlocal colorcolumn=
+setlocal comments=:#
+setlocal commentstring=#=%s=#
+setlocal complete=.,w,b,u,t,i
+setlocal concealcursor=
+set conceallevel=1
+setlocal conceallevel=1
+setlocal completefunc=
+setlocal nocopyindent
+setlocal cryptmethod=
+setlocal nocursorbind
+setlocal nocursorcolumn
+setlocal nocursorline
+setlocal cursorlineopt=both
+setlocal define=^\\s*macro\\>
+setlocal dictionary=
+setlocal nodiff
+setlocal equalprg=
+setlocal errorformat=
+setlocal expandtab
+if &filetype != 'julia'
+setlocal filetype=julia
+endif
+setlocal fixendofline
+setlocal foldcolumn=0
+setlocal foldenable
+setlocal foldexpr=0
+setlocal foldignore=#
+setlocal foldlevel=0
+setlocal foldmarker={{{,}}}
+setlocal foldmethod=manual
+setlocal foldminlines=1
+setlocal foldnestmax=20
+setlocal foldtext=foldtext()
+setlocal formatexpr=
+setlocal formatoptions=n1croql
+setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
+setlocal formatprg=
+setlocal grepprg=
+setlocal iminsert=0
+setlocal imsearch=-1
+setlocal include=^\\s*\\%(reload\\|include\\)\\>
+setlocal includeexpr=
+setlocal indentexpr=GetJuliaIndent()
+setlocal indentkeys=0),0],!^F,o,O,e,=end,=else,=catch,=finally,),],}
+setlocal noinfercase
+setlocal iskeyword=@,48-57,_,192-255
+setlocal keywordprg=:JuliaDocKeywordprg
+setlocal nolinebreak
+setlocal nolisp
+setlocal lispwords=
+setlocal nolist
+setlocal makeencoding=
+setlocal makeprg=
+setlocal matchpairs=(:),{:},[:],<:>
+setlocal modeline
+setlocal modifiable
+setlocal nrformats=bin,octal,hex
+set number
+setlocal number
+setlocal numberwidth=4
+setlocal omnifunc=LaTeXtoUnicode#omnifunc
+setlocal path=
+setlocal nopreserveindent
+setlocal nopreviewwindow
+setlocal quoteescape=\\
+setlocal noreadonly
+set relativenumber
+setlocal relativenumber
+setlocal norightleft
+setlocal rightleftcmd=search
+setlocal noscrollbind
+setlocal scrolloff=-1
+setlocal shiftwidth=2
+setlocal noshortname
+setlocal showbreak=
+setlocal sidescrolloff=-1
+setlocal signcolumn=auto
+setlocal nosmartindent
+setlocal softtabstop=2
+setlocal spell
+setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
+setlocal spellfile=
+setlocal spelllang=en_us
+setlocal statusline=%!py3eval('powerline.statusline(1)')
+setlocal suffixesadd=.jl
+setlocal swapfile
+setlocal synmaxcol=3000
+if &syntax != 'julia'
+setlocal syntax=julia
+endif
+setlocal tabstop=2
+setlocal tagcase=
+setlocal tagfunc=
+setlocal tags=
+setlocal termwinkey=
+setlocal termwinscroll=10000
+setlocal termwinsize=
+setlocal textwidth=79
+setlocal thesaurus=
+setlocal noundofile
+setlocal undolevels=-123456
+setlocal varsofttabstop=
+setlocal vartabstop=
+setlocal wincolor=
+setlocal nowinfixheight
+setlocal nowinfixwidth
+setlocal wrap
+setlocal wrapmargin=0
+silent! normal! zE
+let s:l = 2 - ((1 * winheight(0) + 23) / 47)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+2
+normal! 044|
+tabnext
+edit ~/ucsc/master-2/quarter-1/computational-fluids/assignment_02/code/julPlot.jl
+set splitbelow splitright
+wincmd t
+set winminheight=0
+set winheight=1
+set winminwidth=0
+set winwidth=1
+argglobal
+let s:cpo_save=&cpo
+set cpo&vim
+inoremap <buffer> <expr> <Plug>L2UTab LaTeXtoUnicode#Tab()
+cnoremap <buffer> <expr> <S-Tab> LaTeXtoUnicode#CmdTab(128)
+inoremap <buffer> <silent> L2UFallbackTab =UltiSnips#ExpandSnippetOrJump()
+xnoremap <buffer> <nowait> <silent> [[ :let b:jlblk_count=v:count1gv:call julia_blocks#vwrapper_move("julia_blocks#moveblock_p")
+onoremap <buffer> <nowait> <silent> [[ :let b:jlblk_count=v:count1:call julia_blocks#owrapper_move(v:operator, "julia_blocks#moveblock_p", 0, 1)
+nnoremap <buffer> <nowait> <silent> [[ :let b:jlblk_count=v:count1 | call julia_blocks#moveblock_p()
+xnoremap <buffer> <nowait> <silent> [] :let b:jlblk_count=v:count1gv:call julia_blocks#vwrapper_move("julia_blocks#moveblock_P")
+onoremap <buffer> <nowait> <silent> [] :let b:jlblk_count=v:count1:call julia_blocks#owrapper_move(v:operator, "julia_blocks#moveblock_P", 1, 1)
+nnoremap <buffer> <nowait> <silent> [] :let b:jlblk_count=v:count1 | call julia_blocks#moveblock_P()
+xnoremap <buffer> <nowait> <silent> [j :let b:jlblk_count=v:count1gv:call julia_blocks#vwrapper_move("julia_blocks#move_p")
+onoremap <buffer> <nowait> <silent> [j :let b:jlblk_count=v:count1:call julia_blocks#owrapper_move(v:operator, "julia_blocks#move_p", 0, 1)
+nnoremap <buffer> <nowait> <silent> [j :let b:jlblk_count=v:count1 | call julia_blocks#move_p()
+xnoremap <buffer> <nowait> <silent> [J :let b:jlblk_count=v:count1gv:call julia_blocks#vwrapper_move("julia_blocks#move_P")
+onoremap <buffer> <nowait> <silent> [J :let b:jlblk_count=v:count1:call julia_blocks#owrapper_move(v:operator, "julia_blocks#move_P", 1, 1)
+nnoremap <buffer> <nowait> <silent> [J :let b:jlblk_count=v:count1 | call julia_blocks#move_P()
+xnoremap <buffer> <nowait> <silent> ]] :let b:jlblk_count=v:count1gv:call julia_blocks#vwrapper_move("julia_blocks#moveblock_n")
+onoremap <buffer> <nowait> <silent> ]] :let b:jlblk_count=v:count1:call julia_blocks#owrapper_move(v:operator, "julia_blocks#moveblock_n", 0, 0)
+nnoremap <buffer> <nowait> <silent> ]] :let b:jlblk_count=v:count1 | call julia_blocks#moveblock_n()
+xnoremap <buffer> <nowait> <silent> ]j :let b:jlblk_count=v:count1gv:call julia_blocks#vwrapper_move("julia_blocks#move_n")
+onoremap <buffer> <nowait> <silent> ]j :let b:jlblk_count=v:count1:call julia_blocks#owrapper_move(v:operator, "julia_blocks#move_n", 0, 0)
+nnoremap <buffer> <nowait> <silent> ]j :let b:jlblk_count=v:count1 | call julia_blocks#move_n()
+xnoremap <buffer> <nowait> <silent> ][ :let b:jlblk_count=v:count1gv:call julia_blocks#vwrapper_move("julia_blocks#moveblock_N")
+onoremap <buffer> <nowait> <silent> ][ :let b:jlblk_count=v:count1:call julia_blocks#owrapper_move(v:operator, "julia_blocks#moveblock_N", 1, 0)
+nnoremap <buffer> <nowait> <silent> ][ :let b:jlblk_count=v:count1 | call julia_blocks#moveblock_N()
+xnoremap <buffer> <nowait> <silent> ]J :let b:jlblk_count=v:count1gv:call julia_blocks#vwrapper_move("julia_blocks#move_N")
+onoremap <buffer> <nowait> <silent> ]J :let b:jlblk_count=v:count1:call julia_blocks#owrapper_move(v:operator, "julia_blocks#move_N", 1, 0)
+nnoremap <buffer> <nowait> <silent> ]J :let b:jlblk_count=v:count1 | call julia_blocks#move_N()
+xnoremap <buffer> <nowait> <silent> aj :let b:jlblk_inwrapper=1:let b:jlblk_count=max([v:prevcount,1]):call julia_blocks#vwrapper_select("julia_blocks#select_a")
+onoremap <buffer> <nowait> <silent> aj :let b:jlblk_inwrapper=1:let b:jlblk_count=max([v:prevcount,1]):call julia_blocks#owrapper_select(v:operator, "julia_blocks#select_a")
+xnoremap <buffer> <nowait> <silent> ij :let b:jlblk_inwrapper=1:let b:jlblk_count=max([v:prevcount,1]):call julia_blocks#vwrapper_select("julia_blocks#select_i")
+onoremap <buffer> <nowait> <silent> ij :let b:jlblk_inwrapper=1:let b:jlblk_count=max([v:prevcount,1]):call julia_blocks#owrapper_select(v:operator, "julia_blocks#select_i")
+nnoremap <buffer> <silent> <Plug>(JuliaDocPrompt) :call julia#doc#prompt()
+imap <buffer> 	 <Plug>L2UTab
+cnoremap <buffer> <expr> 	 LaTeXtoUnicode#CmdTab(9)
+let &cpo=s:cpo_save
+unlet s:cpo_save
+setlocal keymap=
+setlocal noarabic
+setlocal autoindent
+setlocal backupcopy=
+setlocal balloonexpr=
+setlocal nobinary
+setlocal nobreakindent
+setlocal breakindentopt=
+setlocal bufhidden=
+setlocal buflisted
+setlocal buftype=
+setlocal nocindent
+setlocal cinkeys=0{,0},0),0],:,0#,!^F,o,O,e
+setlocal cinoptions=#1
+setlocal cinwords=if,else,while,do,for,switch
+setlocal colorcolumn=
+setlocal comments=:#
+setlocal commentstring=#=%s=#
+setlocal complete=.,w,b,u,t,i
+setlocal concealcursor=
+set conceallevel=1
+setlocal conceallevel=1
+setlocal completefunc=
+setlocal nocopyindent
+setlocal cryptmethod=
+setlocal nocursorbind
+setlocal nocursorcolumn
+setlocal nocursorline
+setlocal cursorlineopt=both
+setlocal define=^\\s*macro\\>
+setlocal dictionary=
+setlocal nodiff
+setlocal equalprg=
+setlocal errorformat=
+setlocal expandtab
+if &filetype != 'julia'
+setlocal filetype=julia
+endif
+setlocal fixendofline
+setlocal foldcolumn=0
+setlocal foldenable
+setlocal foldexpr=0
+setlocal foldignore=#
+setlocal foldlevel=0
+setlocal foldmarker={{{,}}}
+setlocal foldmethod=manual
+setlocal foldminlines=1
+setlocal foldnestmax=20
+setlocal foldtext=foldtext()
+setlocal formatexpr=
+setlocal formatoptions=n1croql
+setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
+setlocal formatprg=
+setlocal grepprg=
+setlocal iminsert=0
+setlocal imsearch=-1
+setlocal include=^\\s*\\%(reload\\|include\\)\\>
+setlocal includeexpr=
+setlocal indentexpr=GetJuliaIndent()
+setlocal indentkeys=0),0],!^F,o,O,e,=end,=else,=catch,=finally,),],}
+setlocal noinfercase
+setlocal iskeyword=@,48-57,_,192-255
+setlocal keywordprg=:JuliaDocKeywordprg
+setlocal nolinebreak
+setlocal nolisp
+setlocal lispwords=
+setlocal nolist
+setlocal makeencoding=
+setlocal makeprg=
+setlocal matchpairs=(:),{:},[:],<:>
+setlocal modeline
+setlocal modifiable
+setlocal nrformats=bin,octal,hex
+set number
+setlocal number
+setlocal numberwidth=4
+setlocal omnifunc=LaTeXtoUnicode#omnifunc
+setlocal path=
+setlocal nopreserveindent
+setlocal nopreviewwindow
+setlocal quoteescape=\\
+setlocal noreadonly
+set relativenumber
+setlocal relativenumber
+setlocal norightleft
+setlocal rightleftcmd=search
+setlocal noscrollbind
+setlocal scrolloff=-1
+setlocal shiftwidth=2
+setlocal noshortname
+setlocal showbreak=
+setlocal sidescrolloff=-1
+setlocal signcolumn=auto
+setlocal nosmartindent
+setlocal softtabstop=2
+setlocal nospell
+setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
+setlocal spellfile=
+setlocal spelllang=en_us
+setlocal statusline=%!py3eval('powerline.statusline(2)')
+setlocal suffixesadd=.jl
+setlocal swapfile
+setlocal synmaxcol=3000
+if &syntax != 'julia'
+setlocal syntax=julia
+endif
+setlocal tabstop=2
+setlocal tagcase=
+setlocal tagfunc=
+setlocal tags=
+setlocal termwinkey=
+setlocal termwinscroll=10000
+setlocal termwinsize=
+setlocal textwidth=79
+setlocal thesaurus=
+setlocal noundofile
+setlocal undolevels=-123456
+setlocal varsofttabstop=
+setlocal vartabstop=
+setlocal wincolor=
+setlocal nowinfixheight
+setlocal nowinfixwidth
+setlocal wrap
+setlocal wrapmargin=0
+silent! normal! zE
+let s:l = 10 - ((9 * winheight(0) + 23) / 47)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+10
+normal! 0
+tabnext 1
+set stal=1
+badd +0 prob4_5.jl
+badd +0 ~/ucsc/master-2/quarter-1/computational-fluids/assignment_02/code/julPlot.jl
+if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0
+  silent exe 'bwipe ' . s:wipebuf
+endif
+unlet! s:wipebuf
+set winheight=1 winwidth=20 shortmess=filnxtToOS
+set winminheight=1 winminwidth=1
+let s:sx = expand("<sfile>:p:r")."x.vim"
+if filereadable(s:sx)
+  exe "source " . fnameescape(s:sx)
+endif
+let &so = s:so_save | let &siso = s:siso_save
+nohlsearch
+doautoall SessionLoadPost
+unlet SessionLoad
+" vim: set ft=vim :

@@ -1,0 +1,4 @@
+['data', 'Classifier.py', 'run.py', 'Train.py', 'result']
+Start running the submitted code ...
+Finished. Running time: 0.0754101276398.
+Accuracy: 0.917777777778, F-measure: 0.876666666667, Precision: 0.876666666667, Recall: 0.876666666667, Final_Score: 89.7222222222

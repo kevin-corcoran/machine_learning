@@ -1,0 +1,76 @@
+% !TEX root = /home/computer/ucsc/master-2/quarter-1/machine-learning/master.tex
+\lecture{1}{Mon 04 Oct 2021 15:01}{Assessing Classification Performance}
+
+\section{Contingency Tables}%
+
+\begin{tabular}{c | c c | c}
+    & Predicted \textcolor{teal}{$+$} & Predicted \textcolor{red}{$-$} & \\
+    \hline \\
+  Actual \textcolor{teal}{$+$} & 5 (TP) & 5 (FP) & 10 ($\hat P$) \\
+  Actual\textcolor{red}{$-$} & 4 (FN) & 100 (TN) & 104 ($\hat N$) \\
+  \hline \\
+               & 9 (P) & 105 (N) & 114
+\end{tabular}
+
+\subsection{Accuracy}%
+
+\begin{equation}
+  \text{acc} = \frac{TP + TN}{P+N} = 92.1\%
+\end{equation}
+
+\subsection{Precision}%
+
+\begin{equation}
+  \text{prec} = \frac{TP}{\hat P} = 50\%
+\end{equation}
+
+\subsection{Recall/Sensitivity}%
+
+\begin{equation}
+  \text{recall} = \frac{TP}{P} = 55.6\%
+\end{equation}
+
+\subsection{Examples}%
+
+\begin{itemize}
+  \item Covid19 
+    \begin{itemize}
+      \item Recall is more important 
+      \item Want less false negatives. Don't want someone with covid (pos) to
+        think the don't have it (neg).
+    \end{itemize}
+  \item Google
+    \begin{itemize}
+      \item Precision is more important
+      \item Want less false positives. Don't want an unwanted (pos) to show up
+        in the search results.
+    \end{itemize}
+\end{itemize}
+
+\subsection{Contingency Venn Diagram}%
+
+\begin{figure}[ht]
+    \centering
+    \incfig{contingency-venn-diagram}
+    \caption{Contingency Venn Diagram}
+    \label{fig:contingency-venn-diagram}
+\end{figure}
+
+\section{Coverage Plots}%
+
+Consider classifiers $C_1, C_2, C_3$
+
+\begin{figure}[ht]
+    \centering
+    \incfig{coverage-plot}
+    \caption{Coverage Plot}
+    \label{fig:coverage-plot}
+\end{figure}
+
+In a coverage plot, classifiers with the same accuracy are connected by line
+segments with slope 1. Both $C_1$ and $C_3$ dominate $C_2$, but the choice of
+classifier depends on whether we want more true positives (less false
+negatives), in which case we choose $C_3$, or we care less about true
+positives and want less false positives, in which case we choose $C_1$.
+
+So for Covid19, we choose $C_3$, and for Google, we choose $C_1$?
